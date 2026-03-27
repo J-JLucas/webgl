@@ -1,4 +1,4 @@
-import { Cell } from "./Cell";
+import { Cell } from "./Cell.js";
 
 export class Maze {
   constructor(height, width) {
@@ -10,7 +10,7 @@ export class Maze {
     this.config_cells();
   }
 
-  // access cell at position with bounds checking
+  // Access cell at position with bounds checking
   get_Cell(row, col) {
     if (row < 0 || row >= this.h) return undefined;
     if (col < 0 || col >= this.w) return undefined;
@@ -18,9 +18,10 @@ export class Maze {
     return this.grid[row][col];
   }
 
+  // Returns a random cell
   get_Rand_Cell() {
-    //row = //random number [0,h]
-    //col = //random number [0, w]
+    const row = Math.floor(Math.random() * this.h);
+    const col = Math.floor(Math.random() * this.w);
 
     return this.grid[row][col];
   }
@@ -29,7 +30,7 @@ export class Maze {
     return this.h * this.w;
   }
 
-  // populates grid with Cell objects
+  // Populates grid with Cell objects
   init_grid() {
     for (let i = 0; i < this.h; i++) {
       const row = [];
@@ -40,7 +41,7 @@ export class Maze {
     }
   }
 
-  // populates each cell's neighbors
+  // Populates each cell's neighbors
   config_cells() {
     this.grid.forEach(row => {
       row.forEach(cell => {
@@ -58,17 +59,17 @@ export class Maze {
 
 function main() {
   let h = 1;
-  let w = 2;
+  let w = 3;
   let maze = new Maze(h, w);
 
   for (let i = 0; i < h; i++) {
     for (let j = 0; j < w; j++) {
       const cell = maze.grid[i][j];
       console.log(cell);
+      //console.log(cell.neighbors);
     }
   }
 
-  console.log(maze.grid[0][1].position);
 }
 
 main();

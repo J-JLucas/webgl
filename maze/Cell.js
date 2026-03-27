@@ -4,7 +4,12 @@ export class Cell {
     this.i = i;
     this.j = j;
     //this.walls = [true, true, true, true] // N,E,S,W
-    this.neighbors = [null, null, null, null]; // Cell objects: N,E,S,W
+    //this.neighbors = [null, null, null, null]; // Cell objects: N,E,S,W
+    this.north = null;
+    this.east = null;
+    this.south = null;
+    this.west = null;
+
     this.links = new Map();
   }
 

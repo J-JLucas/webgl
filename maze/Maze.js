@@ -11,7 +11,7 @@ export class Maze {
   }
 
   // Access cell at position with bounds checking
-  get_Cell(row, col) {
+  get_cell(row, col) {
     if (row < 0 || row >= this.h) return undefined;
     if (col < 0 || col >= this.w) return undefined;
 
@@ -19,7 +19,7 @@ export class Maze {
   }
 
   // Returns a random cell
-  get_Rand_Cell() {
+  get_rand_cell() {
     const row = Math.floor(Math.random() * this.h);
     const col = Math.floor(Math.random() * this.w);
 
@@ -48,28 +48,35 @@ export class Maze {
         const [r, c] = cell.position;
 
         // N E S W 
-        cell.neighbors[0] = this.get_Cell(r - 1, c);
-        cell.neighbors[1] = this.get_Cell(r, c + 1);
-        cell.neighbors[2] = this.get_Cell(r + 1, c);
-        cell.neighbors[3] = this.get_Cell(r, c - 1);
+        cell.north = this.get_cell(r - 1, c);
+        cell.east = this.get_cell(r, c + 1);
+        cell.south = this.get_cell(r + 1, c);
+        cell.west = this.get_cell(r, c - 1);
       });
     });
   }
-}
 
-function main() {
-  let h = 1;
-  let w = 3;
-  let maze = new Maze(h, w);
+  draw_debug() {
+    let output = "+" + "---+".repeat(this.w) + "\n";
 
-  for (let i = 0; i < h; i++) {
-    for (let j = 0; j < w; j++) {
-      const cell = maze.grid[i][j];
-      console.log(cell);
-      //console.log(cell.neighbors);
-    }
+    this.grid.forEach(row => {
+      let top = "|";
+      let bottom = "+";
+
+      row.forEach(cell => {
+        const body = "   ";
+        const east_boundary = (cell.east && cell.isLinked(cell.east)) ? " " : "|";
+        top += body + east_boundary;
+
+        const south_boundary = (cell.south && cell.isLinked(cell.south)) ? "   " : "---";
+        bottom += south_boundary + "+";
+      });
+
+      output += top + "\n";
+      output += bottom + "\n";
+    });
+
+    return output;
   }
-
 }
 
-main();

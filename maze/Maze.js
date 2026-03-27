@@ -10,10 +10,10 @@ export class Maze {
     this.config_cells();
   }
 
-  // Access cell at position with bounds checking
+  // Access cell at position
   get_cell(row, col) {
-    if (row < 0 || row >= this.h) return undefined;
-    if (col < 0 || col >= this.w) return undefined;
+    if (row < 0 || row >= this.h) return null;
+    if (col < 0 || col >= this.w) return null;
 
     return this.grid[row][col];
   }

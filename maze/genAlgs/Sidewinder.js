@@ -23,7 +23,7 @@ export class SidewinderGenerator {
           const run_cell = run[coinflip];
           const [r, c] = run_cell.position;
 
-          if (run_cell.north) {
+          if (run_cell.north !== null) {
             run_cell.link(run_cell.north);
           }
           run.length = 0; // clear run array

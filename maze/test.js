@@ -1,5 +1,6 @@
 import { Maze } from "./Maze.js";
 import { BinTreeGenerator } from "./genAlgs/BinTree.js";
+import { SidewinderGenerator } from "./genAlgs/Sidewinder.js"
 
 function main() {
   let h = 4;
@@ -15,7 +16,9 @@ function main() {
   }
   */
 
-  BinTreeGenerator.generate_maze(maze);
+  //BinTreeGenerator.generate_maze(maze);
+  SidewinderGenerator.generate_maze(maze);
+
   console.log(maze.draw_debug());
 
 }

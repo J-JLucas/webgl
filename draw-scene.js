@@ -21,7 +21,8 @@ function drawScene(gl, programInfo, buffers) {
 
   // note: glMatrix always has the first argument
   // as the destination to receive the result.
-  mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
+  //mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
+  mat4.ortho(projectionMatrix, -2, 18, -2, 18, 0.1, 100);
 
   // Set the drawing position to the "identity" point, which is
   // the center of the scene.
@@ -59,8 +60,8 @@ function drawScene(gl, programInfo, buffers) {
 
   {
     const offset = 0;
-    const vertexCount = 4;
-    gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+    const vertexCount = buffers.position.vertexCount;
+    gl.drawArrays(gl.LINES, offset, vertexCount);
   }
 }
 
@@ -73,7 +74,7 @@ function setPositionAttribute(gl, buffers, programInfo) {
   const stride = 0; // how many bytes to get from one set of values to the next
   // 0 = use type and numComponents above
   const offset = 0; // how many bytes inside the buffer to start from
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position.buffer);
   gl.vertexAttribPointer(
     programInfo.attribLocations.vertexPosition,
     numComponents,

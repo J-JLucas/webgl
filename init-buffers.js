@@ -1,6 +1,10 @@
+import { Maze } from "./maze/Maze.js"
+import { SidewinderGenerator } from "./maze/genAlgs/Sidewinder.js";
+import { MazeGeoBuilder } from "./MazeGeoBuilder.js";
+
 function initBuffers(gl) {
   const positionBuffer = initPositionBuffer(gl);
-  const colorBuffer = initColorBuffer(gl);
+  const colorBuffer = initColorBuffer(gl, positionBuffer.vertexCount);
 
   return {
     position: positionBuffer,
@@ -17,35 +21,28 @@ function initPositionBuffer(gl) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   // Now create an array of positions for the square.
-  const positions = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
+
+  const maze = new Maze(16, 16);
+  SidewinderGenerator.generate_maze(maze);
+  const positions = MazeGeoBuilder.build_geometry(maze);
 
   // Now pass the list of positions into WebGL to build the
   // shape. We do this by creating a Float32Array from the
   // JavaScript array, then use it to fill the current buffer.
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-  return positionBuffer;
+  return {
+    buffer: positionBuffer,
+    vertexCount: positions.length / 2,
+  };
 }
 
-function initColorBuffer(gl) {
-  const colors = [
-    1.0,
-    1.0,
-    1.0,
-    1.0, // white
-    1.0,
-    0.0,
-    0.0,
-    1.0, // red
-    0.0,
-    1.0,
-    0.0,
-    1.0, // green
-    0.0,
-    0.0,
-    1.0,
-    1.0, // blue
-  ];
+function initColorBuffer(gl, vertexCount) {
+  const colors = [];
+
+  for (let i = 0; i < vertexCount; i++) {
+    colors.push(1.0, 1.0, 1.0, 1.0);
+  }
 
   const colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);

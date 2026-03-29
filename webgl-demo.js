@@ -17,8 +17,10 @@ function main() {
     return;
   }
 
-  // Set clear color to black, fully opaque
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  // Set clear color
+  const CLEAR_COLOR = [0.0, 0.0, 0.0, 1.0] // black
+  gl.clearColor(...CLEAR_COLOR);
+
   // Clear the color buffer w/ specified clear color
   gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -66,11 +68,18 @@ function main() {
     },
   };
 
-  // Here's where we call the routine that builds all the objects we'll be drawing
-  const buffers = initBuffers(gl);
-  drawScene(gl, programInfo, buffers);
+  // register buttons to listen for events
+  const generate = document.querySelector("#generate");
+  generate.addEventListener("click", (event) => {
+    render(gl, programInfo);
+  });
 
+  const solve = document.querySelector("#solve");
+  solve.addEventListener("click", (event) => {
+    console.log("clicked solve");
+  });
 }
+
 
 // Initialize a shader program, so WebGL knows how to draw our data
 function initShaderProgram(gl, vsSource, fsSource) {
@@ -117,4 +126,9 @@ function loadShader(gl, type, source) {
   }
 
   return shader;
+}
+
+function render(gl, programInfo) {
+  const buffers = initBuffers(gl);
+  drawScene(gl, programInfo, buffers);
 }

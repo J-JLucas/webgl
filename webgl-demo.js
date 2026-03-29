@@ -69,13 +69,13 @@ function main() {
   };
 
   // register buttons to listen for events
-  const generate = document.querySelector("#generate");
-  generate.addEventListener("click", (event) => {
-    render(gl, programInfo);
+  const generateButton = document.querySelector("#generate");
+  generateButton.addEventListener("click", (event) => {
+    generateMaze(gl, programInfo);
   });
 
-  const solve = document.querySelector("#solve");
-  solve.addEventListener("click", (event) => {
+  const solveButton = document.querySelector("#solve");
+  solveButton.addEventListener("click", (event) => {
     console.log("clicked solve");
   });
 }
@@ -128,7 +128,8 @@ function loadShader(gl, type, source) {
   return shader;
 }
 
-function render(gl, programInfo) {
-  const buffers = initBuffers(gl);
+function generateMaze(gl, programInfo) {
+  const genAlg = document.querySelector("#generators").value;
+  const buffers = initBuffers(gl, genAlg);
   drawScene(gl, programInfo, buffers);
 }

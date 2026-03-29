@@ -22,7 +22,7 @@ function drawScene(gl, programInfo, buffers) {
   // note: glMatrix always has the first argument
   // as the destination to receive the result.
   //mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
-  mat4.ortho(projectionMatrix, -2, 18, -2, 18, 0.1, 100);
+  mat4.ortho(projectionMatrix, -2, 18, 18, -2, 0.1, 100);
 
   // Set the drawing position to the "identity" point, which is
   // the center of the scene.

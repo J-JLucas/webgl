@@ -16,8 +16,8 @@ function main() {
   }
   */
 
-  //BinTreeGenerator.generate_maze(maze);
-  SidewinderGenerator.generate_maze(maze);
+  BinTreeGenerator.generate_maze(maze);
+  //SidewinderGenerator.generate_maze(maze);
 
   console.log(maze.draw_debug());
 

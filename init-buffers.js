@@ -1,9 +1,10 @@
 import { Maze } from "./maze/Maze.js"
+import { BinTreeGenerator } from "./maze/genAlgs/BinTree.js"
 import { SidewinderGenerator } from "./maze/genAlgs/Sidewinder.js";
 import { MazeGeoBuilder } from "./MazeGeoBuilder.js";
 
-function initBuffers(gl) {
-  const positionBuffer = initPositionBuffer(gl);
+function initBuffers(gl, generationAlg) {
+  const positionBuffer = initPositionBuffer(gl, generationAlg);
   const colorBuffer = initColorBuffer(gl, positionBuffer.vertexCount);
 
   return {
@@ -12,7 +13,7 @@ function initBuffers(gl) {
   };
 }
 
-function initPositionBuffer(gl) {
+function initPositionBuffer(gl, generationAlg) {
   // Create a buffer for the square's positions.
   const positionBuffer = gl.createBuffer();
 
@@ -20,10 +21,20 @@ function initPositionBuffer(gl) {
   // operations to from here out.
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-  // Now create an array of positions for the square.
-
+  console.log("generating maze...");
+  // Now generate maze geometry according to selected algorithm.
   const maze = new Maze(16, 16);
-  SidewinderGenerator.generate_maze(maze);
+
+  switch (generationAlg) {
+    case "binTree":
+      BinTreeGenerator.generate_maze(maze);
+      break;
+    case "sidewinder":
+      SidewinderGenerator.generate_maze(maze);
+      break;
+  }
+  console.log(`Generated ${generationAlg} maze`);
+
   const positions = MazeGeoBuilder.build_geometry(maze);
 
   // Now pass the list of positions into WebGL to build the

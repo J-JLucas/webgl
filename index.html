@@ -11,7 +11,25 @@
 </head>
 
 <body>
-  <canvas id="gl-canvas" width="640" height="480"></canvas>
+  <h1>Fun with Mazes</h1>
+  <div>
+    <canvas id="gl-canvas" width="640" height="480"></canvas>
+  </div>
+  <div>
+    <label for="generators">Maze Generation Algorithm:</label>
+    <select name="generators" id="generators">
+      <option value="binTree">Binary Tree</option>
+      <option value="sidewinder">Sidewinder</option>
+    </select>
+    <label for="solvers">Solver Algorithm:</label>
+    <select name="solvers" id="solvers">
+      <option value="dijkstra">Dijkstra</option>
+    </select>
+  </div>
+  <div>
+    <button>Generate</button>
+    <button>Solve</button>
+  </div>
 </body>
 
 </html>

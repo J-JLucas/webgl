@@ -41,7 +41,7 @@ function initColorBuffer(gl, vertexCount) {
   const colors = [];
 
   for (let i = 0; i < vertexCount; i++) {
-    colors.push(1.0, 1.0, 1.0, 1.0);
+    colors.push(0 / 255.0, 255.0 / 255.0, 166.0 / 255.0, 1.0);
   }
 
   const colorBuffer = gl.createBuffer();

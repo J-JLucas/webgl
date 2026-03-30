@@ -55,6 +55,9 @@ export class Maze {
       });
     });
   }
+  contents_of(cell) {
+    return " ";
+  }
 
   draw_debug() {
     let output = "+" + "---+".repeat(this.w) + "\n";
@@ -64,7 +67,7 @@ export class Maze {
       let bottom = "+";
 
       row.forEach(cell => {
-        const body = "   ";
+        const body = ` ${this.contents_of(cell)} `;
         const east_boundary = (cell.east && cell.isLinked(cell.east)) ? " " : "|";
         top += body + east_boundary;
 

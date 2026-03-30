@@ -1,3 +1,5 @@
+import { Distances } from "./Distances.js"
+
 export class Cell {
   constructor(i, j) {
     //set position in grid
@@ -48,4 +50,26 @@ export class Cell {
   isLinked(cell) {
     return this.links.get(cell);
   }
+
+  distances() {
+    const distances = new Distances(this);
+    distances.setDist(this, 0);
+    let frontier = [this];
+
+    while (frontier.length > 0) {
+      const new_frontier = [];
+
+      frontier.forEach((cell) => {
+        for (const neighbor of cell.links.keys()) {
+          if (distances.getDist(neighbor) !== undefined) { continue; }
+          distances.setDist(neighbor, distances.getDist(cell) + 1);
+          new_frontier.push(neighbor);
+        }
+      });
+      frontier = new_frontier;
+    }
+
+    return distances;
+  }
+
 }

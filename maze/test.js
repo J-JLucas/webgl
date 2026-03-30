@@ -1,11 +1,12 @@
 import { Maze } from "./Maze.js";
-import { BinTreeGenerator } from "./genAlgs/BinTree.js";
-import { SidewinderGenerator } from "./genAlgs/Sidewinder.js"
+import { DistanceMaze } from "./DistanceMaze.js"
+import { BinTreeGenerator } from "./generators/BinTree.js";
+import { SidewinderGenerator } from "./generators/Sidewinder.js"
 
 function main() {
-  let h = 4;
-  let w = 4;
-  let maze = new Maze(h, w);
+  let h = 6;
+  let w = 6;
+  let maze = new DistanceMaze(h, w);
 
   /*
   for (let i = 0; i < h; i++) {
@@ -16,8 +17,12 @@ function main() {
   }
   */
 
-  BinTreeGenerator.generate_maze(maze);
-  //SidewinderGenerator.generate_maze(maze);
+
+  const entrance = maze.get_cell(0, 0);
+
+  //BinTreeGenerator.generate_maze(maze);
+  SidewinderGenerator.generate_maze(maze);
+  maze.distances = entrance.distances();
 
   console.log(maze.draw_debug());
 

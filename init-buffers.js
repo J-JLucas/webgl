@@ -1,6 +1,6 @@
 import { Maze } from "./maze/Maze.js"
-import { BinTreeGenerator } from "./maze/genAlgs/BinTree.js"
-import { SidewinderGenerator } from "./maze/genAlgs/Sidewinder.js";
+import { BinTreeGenerator } from "./maze/generators/BinTree.js"
+import { SidewinderGenerator } from "./maze/generators/Sidewinder.js";
 import { MazeGeoBuilder } from "./MazeGeoBuilder.js";
 
 function initBuffers(gl, generationAlg) {

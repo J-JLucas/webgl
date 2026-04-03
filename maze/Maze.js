@@ -8,6 +8,15 @@ export class Maze {
 
     this.init_grid();
     this.config_cells();
+
+  }
+
+  get entrance() {
+    return this.grid[0][0];
+  }
+
+  get exit() {
+    return this.grid[this.h - 1][this.w - 1];
   }
 
   // Access cell at position

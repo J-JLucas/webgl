@@ -6,7 +6,7 @@ export class Distances {
   constructor(root) {
     this.root = root;
     this.cells = new Map();
-    this.cells[root] = 0;
+    this.setDist(root, 0);
   }
 
   getDist(cell) {
@@ -20,4 +20,23 @@ export class Distances {
   getCells() {
     return this.cells.keys();
   }
+
+  path_to(goal) {
+    let current = goal;
+    const breadcrumbs = new Distances(this.root);
+    breadcrumbs.setDist(current, this.getDist(current));
+
+    while (current !== this.root) {
+
+      for (const neighbor of current.links.keys()) {
+        if (this.getDist(neighbor) < this.getDist(current)) {
+          breadcrumbs.setDist(neighbor, this.getDist(neighbor));
+          current = neighbor;
+          break;
+        }
+      }
+    }
+    return breadcrumbs;
+  }
+
 }

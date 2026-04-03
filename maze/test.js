@@ -2,6 +2,7 @@ import { Maze } from "./Maze.js";
 import { DistanceMaze } from "./DistanceMaze.js"
 import { BinTreeGenerator } from "./generators/BinTree.js";
 import { SidewinderGenerator } from "./generators/Sidewinder.js"
+import { Dijkstra } from "./solvers/Dijkstra.js";
 
 function main() {
   let h = 6;
@@ -18,13 +19,14 @@ function main() {
   */
 
 
-  const entrance = maze.get_cell(0, 0);
 
+  // Generate
   //BinTreeGenerator.generate_maze(maze);
   SidewinderGenerator.generate_maze(maze);
-  maze.distances = entrance.distances();
-
   console.log(maze.draw_debug());
+
+  // Solve
+  Dijkstra.solve(maze);
 
 }
 
